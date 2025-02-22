@@ -3,6 +3,7 @@ import { db } from '@/drizzle/config';
 import { users, addresses } from '@/drizzle/schema';
 import { eq, like, sql } from 'drizzle-orm';
 
+// ✅ GET: Menampilkan Data User
 export async function GET(req: Request) {
   try {
     const { searchParams } = new URL(req.url);

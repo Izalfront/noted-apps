@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, Suspense } from 'react';
 import DeleteButton from '@/components/DeleteButton';
 import UserForm from '@/components/form';
 import Link from 'next/link';
@@ -23,6 +23,7 @@ export default function UsersPage() {
   const [totalPages, setTotalPages] = useState(1);
   const [search, setSearch] = useState('');
 
+  // Fungsi untuk pagination dan search
   useEffect(() => {
     async function fetchUsers() {
       try {
@@ -38,8 +39,12 @@ export default function UsersPage() {
   }, [page, search]);
 
   return (
+    // Komponen utama untuk membungkus form dengan Suspense (lazy loading)
     <div className="p-6">
-      <UserForm />
+      <Suspense fallback={<div>Loading...</div>}>
+        <UserForm />
+      </Suspense>
+
       <h1 className="text-2xl font-bold mb-4">Daftar User</h1>
 
       {/* Fitur Pencarian */}

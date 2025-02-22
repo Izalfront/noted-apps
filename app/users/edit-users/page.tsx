@@ -1,12 +1,12 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, Suspense } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import * as z from 'zod';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 
-// Skema Validasi Dengan Zod
+// Validasi form menggunakan zod
 const userSchema = z.object({
   firstname: z.string().min(1, 'Nama depan wajib diisi'),
   lastname: z.string().min(1, 'Nama belakang wajib diisi'),
@@ -19,13 +19,25 @@ const userSchema = z.object({
   }),
 });
 
-{
-  /* Form Edit Data User */
-}
+// Komponen utama untuk membungkus form dengan Suspense (lazy loading)
 export default function UserForm() {
+  return (
+    <Suspense fallback={<p>Loading form...</p>}>
+      <UserFormContent />
+    </Suspense>
+  );
+}
+
+// Komponen form utama untuk mengedit user
+function UserFormContent() {
   const router = useRouter();
   const searchParams = useSearchParams();
-  const userId = searchParams.get('id');
+  const [userId, setUserId] = useState<string | null>(null);
+
+  // Mengambil ID user dari parameter URL jika tersedia
+  useEffect(() => {
+    setUserId(searchParams.get('id'));
+  }, [searchParams]);
 
   const [formData, setFormData] = useState({
     firstname: '',
@@ -37,18 +49,17 @@ export default function UserForm() {
   const [errors, setErrors] = useState<Record<string, string>>({});
   const [loading, setLoading] = useState(false);
   const [isLoadingData, setIsLoadingData] = useState(!!userId);
-  console.log(userId);
+
+  // Fetch data user jika userId tersedia
   useEffect(() => {
     if (userId) {
       async function fetchUser() {
         try {
-          console.log('Fetching user with ID:', userId);
           const res = await fetch(`/api/users?id=${userId}`);
           if (!res.ok) throw new Error('Gagal mengambil data');
 
           const { data } = await res.json();
           const user = data[0];
-          console.log('User data:', user);
 
           setFormData({
             firstname: user.firstname || '',
@@ -72,9 +83,11 @@ export default function UserForm() {
     }
   }, [userId]);
 
-  // Handle perubahan input
+  // Handle perubahan input form
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
+
+    // Jika input terkait dengan alamat, update nested object `address`
     if (name.startsWith('address.')) {
       const field = name.split('.')[1];
       setFormData((prev) => ({
@@ -86,15 +99,16 @@ export default function UserForm() {
     }
   };
 
-  // Submit Form
+  // Handle submit form
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
     setErrors({});
 
-    // Validasi dengan Zod
+    // Validasi form dengan zod
     const parsed = userSchema.safeParse(formData);
     if (!parsed.success) {
+      // Format error menjadi object agar bisa ditampilkan di form
       const formattedErrors: Record<string, string> = {};
       parsed.error.errors.forEach((err) => {
         formattedErrors[err.path.join('.')] = err.message;
