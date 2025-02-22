@@ -2,6 +2,9 @@
 
 import { Button } from '@/components/ui/button';
 
+{
+  /* Fungsi delete di komponen tombol delete */
+}
 export default function DeleteButton({ id }: { id: number }) {
   const deleteUser = async () => {
     const confirmDelete = confirm('Apakah Anda yakin ingin menghapus user ini?');

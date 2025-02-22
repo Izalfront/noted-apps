@@ -18,7 +18,9 @@ const userSchema = z.object({
     postal_code: z.string().min(1, 'Kode pos wajib diisi'),
   }),
 });
-
+{
+  /* Form Tambah Data User */
+}
 export default function UserForm() {
   const router = useRouter();
   const [formData, setFormData] = useState({
@@ -67,7 +69,7 @@ export default function UserForm() {
       firstname: formData.firstname,
       lastname: formData.lastname,
       birthdate: formData.birthdate,
-      ...formData.address, // Memisahkan field address agar sesuai dengan backend
+      ...formData.address,
     };
 
     try {

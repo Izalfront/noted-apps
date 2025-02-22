@@ -17,7 +17,7 @@ export async function GET(req: Request) {
     if (userId) filters.push(eq(users.id, Number(userId)));
     if (search) filters.push(like(users.firstname, `%${search}%`));
 
-    // Pastikan `where()` hanya dipanggil jika ada filter
+    // `where()` hanya dipanggil jika ada filter
     const userData = await db
       .select({
         id: users.id,
@@ -31,13 +31,13 @@ export async function GET(req: Request) {
       })
       .from(users)
       .leftJoin(addresses, eq(users.id, addresses.user_id))
-      .where(filters.length ? sql`${sql.join(filters, ' AND ')}` : undefined) // ✅ Gunakan kondisi dinamis
+      .where(filters.length ? sql`${sql.join(filters, ' AND ')}` : undefined)
       .limit(limit)
       .offset(offset);
 
     // Hitung total users untuk pagination
     const totalUsers = await db
-      .select({ count: sql<number>`COUNT(*)` }) // ✅ Pastikan COUNT dalam format yang benar
+      .select({ count: sql<number>`COUNT(*)` })
       .from(users)
       .where(filters.length ? sql`${sql.join(filters, ' AND ')}` : undefined);
 
@@ -63,7 +63,6 @@ export async function POST(req: Request) {
 
     await db.insert(users).values({ firstname, lastname, birthdate });
 
-    // Ambil ID terakhir yang ditambahkan
     const [userIdRow] = await db.select({ userId: sql<number>`MAX(id)` }).from(users);
     const userId = userIdRow.userId;
 
@@ -90,7 +89,6 @@ export async function PUT(req: Request) {
     const body = await req.json();
     const { id, firstname, lastname, birthdate, address } = body;
 
-    // Periksa apakah user ada
     const existingUser = await db.select().from(users).where(eq(users.id, id));
     if (existingUser.length === 0) {
       return NextResponse.json({ error: 'User tidak ditemukan' }, { status: 404 });
@@ -100,7 +98,6 @@ export async function PUT(req: Request) {
       await trx.update(users).set({ firstname, lastname, birthdate }).where(eq(users.id, id));
 
       if (address) {
-        // Cek apakah alamat sudah ada
         const existingAddress = await trx.select().from(addresses).where(eq(addresses.user_id, id));
         if (existingAddress.length > 0) {
           await trx.update(addresses).set(address).where(eq(addresses.user_id, id));
@@ -122,7 +119,6 @@ export async function DELETE(req: Request) {
   try {
     const { id } = await req.json();
 
-    // Cek apakah user ada
     const userExists = await db.select().from(users).where(eq(users.id, id));
     if (userExists.length === 0) {
       return NextResponse.json({ error: 'User tidak ditemukan' }, { status: 404 });

@@ -42,7 +42,7 @@ export default function UsersPage() {
       <UserForm />
       <h1 className="text-2xl font-bold mb-4">Daftar User</h1>
 
-      {/* Search Input */}
+      {/* Fitur Pencarian */}
       <input type="text" placeholder="Cari berdasarkan nama..." className="p-2 border rounded mb-4 w-full" value={search} onChange={(e) => setSearch(e.target.value)} />
 
       <table className="w-full border">
@@ -54,6 +54,7 @@ export default function UsersPage() {
             <th className="p-2">Aksi</th>
           </tr>
         </thead>
+        {/* Menampilkan Data */}
         <tbody>
           {users.length > 0 ? (
             users.map((user) => (
@@ -82,7 +83,7 @@ export default function UsersPage() {
         </tbody>
       </table>
 
-      {/* Pagination Controls */}
+      {/* Kontrol Paginasi */}
       <div className="flex justify-between items-center mt-4">
         <Button disabled={page === 1} onClick={() => setPage((prev) => Math.max(prev - 1, 1))}>
           Previous
