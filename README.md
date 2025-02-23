@@ -1,6 +1,7 @@
-# Next.js 15 Project Template
+# Next.js 15 Project To Do List App
+![image](https://github.com/user-attachments/assets/9b6a7de4-e220-4e16-bfcc-7c4e207eb9ef)
 
-This is a modern [Next.js](https://nextjs.org) project template with TypeScript, Zod validation, Drizzle ORM, and ShadCN UI components.
+This is a modern [Next.js](https://nextjs.org) project to do list app with TypeScript, Zod validation, Drizzle ORM, and ShadCN UI components.
 
 ## Prerequisites
 
@@ -45,7 +46,7 @@ DATABASE_URL="mysql://user:password@localhost:3306/your_database"
 # Add other environment variables as needed
 ```
 
-2. Generate and run migrations:
+1. Generate and run migrations:
 ```bash
 # Generate migration
 npx drizzle-kit generate:mysql
@@ -103,6 +104,9 @@ To learn more about the technologies used in this template:
 - [Zod Documentation](https://zod.dev)
 - [ShadCN UI Documentation](https://ui.shadcn.com)
 
-## Speec Engineering
-- [Spec Engineering](https://www.notion.so/Engineering-Spec-To-Do-List-App-1a2650cc859880e5a932c1f51b8f9ea0?pvs=4)
+## Spesifikasi Teknik
+
+Dokumen spesifikasi teknik untuk aplikasi To-Do List dapat ditemukan di:
+
+* [Spesifikasi Teknik Aplikasi To-Do List](https://incongruous-beech-e52.notion.site/Engineering-Spec-To-Do-List-App-1a2650cc859880e5a932c1f51b8f9ea0)
 
