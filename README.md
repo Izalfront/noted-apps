@@ -13,8 +13,8 @@ Before you begin, ensure you have installed:
 
 1. Clone the repository:
 ```bash
-git clone <your-repository-url>
-cd <your-project-name>
+git clone [<your-repository-url>](https://github.com/Izalfront/noted-apps.git)
+cd noted-apps
 ```
 
 2. Install dependencies:
@@ -40,7 +40,7 @@ npx shadcn-ui@latest init
 
 4. Set up your environment variables by creating a `.env` file in the root directory:
 ```env
-# Database Configuration
+# Database Configuration local
 DATABASE_URL="mysql://user:password@localhost:3306/your_database"
 
 # Add other environment variables as needed
