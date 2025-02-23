@@ -13,7 +13,7 @@ Before you begin, ensure you have installed:
 
 1. Clone the repository:
 ```bash
-git clone [<your-repository-url>](https://github.com/Izalfront/noted-apps.git)
+git clone https://github.com/Izalfront/noted-apps.git
 cd noted-apps
 ```
 
@@ -97,16 +97,16 @@ This project can be deployed on [Railway](https://railway.app/):
 
 ## Learn More
 
-To learn more about the technologies used in this template:
+To learn more about the technologies used in this to do list app:
 
 - [Next.js Documentation](https://nextjs.org/docs)
 - [Drizzle ORM Documentation](https://orm.drizzle.team)
 - [Zod Documentation](https://zod.dev)
 - [ShadCN UI Documentation](https://ui.shadcn.com)
 
-## Spesifikasi Teknik
+## Spec Engineering
 
-Dokumen spesifikasi teknik untuk aplikasi To-Do List dapat ditemukan di:
+The technical specification document for the To-Do List application can be found at:
 
-* [Spesifikasi Teknik Aplikasi To-Do List](https://incongruous-beech-e52.notion.site/Engineering-Spec-To-Do-List-App-1a2650cc859880e5a932c1f51b8f9ea0)
+* [Spec Engineerin To Do List App](https://incongruous-beech-e52.notion.site/Engineering-Spec-To-Do-List-App-1a2650cc859880e5a932c1f51b8f9ea0)
 
